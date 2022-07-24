@@ -48,7 +48,7 @@ public class DummyMeetingApiService implements MeetingApiService {
      * @param meeting
      */
     public void createMeeting(Meeting meeting){
-
+        meetings.add(meeting);
     }
 
     /**
@@ -56,7 +56,7 @@ public class DummyMeetingApiService implements MeetingApiService {
      * @param meeting
      */
     public void cancelMeeting(Meeting meeting){
-
+        meetings.remove(meeting);
     }
 
 

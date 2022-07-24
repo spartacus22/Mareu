@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com.example.mareu.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mareu.R;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.service.MeetingApiService;
-import com.example.mareu.DI.DI;
-
-import com.example.mareu.placeholder.PlaceholderContent;
 
 import java.util.List;
 
