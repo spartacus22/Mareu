@@ -30,7 +30,7 @@ public abstract class DummyMeetingsGenerator {
                     2,
                     "Réunion B",
                     new Calendar.Builder()
-                            .setDate(2022, 07, 17)
+                            .setDate(2022, 07, 28)
                             .setTimeOfDay(16, 0, 0)
                             .build().getTime(),
                     "Mario",
@@ -40,7 +40,7 @@ public abstract class DummyMeetingsGenerator {
                     3,
                     "Réunion C",
                     new Calendar.Builder()
-                            .setDate(2022, 07, 17)
+                            .setDate(2022, 07, 23)
                             .setTimeOfDay(19, 0, 0)
                             .build().getTime(),
                     "Luigi",

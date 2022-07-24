@@ -91,6 +91,5 @@ public class Meeting implements Serializable {
         this.attendees = attendees;
     }
 
-
 }
 
