@@ -51,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
         binding.RView.setAdapter(adapter);
         binding.RView.setLayoutManager(new LinearLayoutManager(this));
 
+        binding.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddMeetingActivity.navigate(MainActivity.this);
+               // Log.d(TAG, "View Binding press button");
+            }
+        });
+
         Log.d(TAG, String.valueOf(mReunion.getMeetingDate()));
         Log.d(TAG,mReunion.getAttendees().get(1));
 
