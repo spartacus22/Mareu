@@ -23,18 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="36dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:foregroundGravity="top"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_filter"
-        app:tint="@color/white" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RView"
         android:layout_width="409dp"
@@ -44,16 +32,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <ImageView
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="24dp"
-        android:elevation="10dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:scaleType="center"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/RView"
         app:layout_constraintEnd_toEndOf="@+id/RView"
-        app:srcCompat="@drawable/ic_baseline_add_circle" />
+        app:maxImageSize="67dp"
+        app:srcCompat="@drawable/ic_baseline_add_circle_56"
+        app:tint="@color/design_default_color_error" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/ic_baseline_filter"
+        android:backgroundTint="@color/white"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:layout_constraintBottom_toTopOf="@+id/RView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

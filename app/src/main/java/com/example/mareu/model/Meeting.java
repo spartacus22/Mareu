@@ -33,7 +33,7 @@ public class Meeting implements Serializable {
     /**
      * Attendees
      */
-    private ArrayList<String> attendees;
+    private String attendees;
 
 
     /**
@@ -43,7 +43,7 @@ public class Meeting implements Serializable {
      * @param subject
      * @param meetingDate
      */
-    public Meeting(long id, String subject, Date meetingDate, String place, ArrayList<String> attendees) {
+    public Meeting(long id, String subject, Date meetingDate, String place, String attendees) {
         this.id = id;
         this.subject = subject;
         this.meetingDate = meetingDate;
@@ -83,11 +83,11 @@ public class Meeting implements Serializable {
         this.place = place;
     }
 
-    public ArrayList<String> getAttendees() {
+    public String getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(ArrayList<String> attendees) {
+    public void setAttendees(String attendees) {
         this.attendees = attendees;
     }
 

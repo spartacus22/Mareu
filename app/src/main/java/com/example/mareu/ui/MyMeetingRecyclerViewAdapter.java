@@ -2,6 +2,7 @@ package com.example.mareu.ui;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.example.mareu.databinding.FragmentMeetingBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.event.CancelMeetingEvent;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,6 +27,7 @@ import org.greenrobot.eventbus.EventBus;
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder> {
 
     private final List<Meeting> mMeetings ;
+    private static final String TAG = "MyActivity";
 
     public MyMeetingRecyclerViewAdapter(List<Meeting> items) {
         mMeetings = items;
@@ -39,13 +42,14 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Meeting meeting = mMeetings.get(position);
+        SimpleDateFormat spf = new SimpleDateFormat("HH:mm");
+        String hour = spf.format(mMeetings.get(position).getMeetingDate());
+        Log.d(TAG, hour);
         holder.mItem = mMeetings.get(position);
       //  holder.mIdView.setText(mMeetings.get(position).getId());
         holder.mContentView.setText(mMeetings.get(position).getSubject()
                 + " - "
-                + mMeetings.get(position).getMeetingDate().getHours()
-                + "h"
-                + mMeetings.get(position).getMeetingDate().getMinutes()
+                + spf.format(mMeetings.get(position).getMeetingDate())
                 + " - "
                 + mMeetings.get(position).getPlace()
         );

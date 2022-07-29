@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mareu.DI.DI;
 import com.example.mareu.databinding.ActivityMainBinding;
@@ -24,15 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     private static MeetingApiService mApiService;
     private List<Meeting> mMeetings;
-    private Date date = new Calendar.Builder()
-            .setDate(2022, 07, 17)
-            .setTimeOfDay(14, 0, 0)
-            .build().getTime();
-    private ArrayList participants = new ArrayList(Arrays.asList("toto", "titi"));
-    private Meeting mReunion = new Meeting(1, "Morning", date, "Salle Concorde", participants);
-
     private ActivityMainBinding binding;
     private MyMeetingRecyclerViewAdapter adapter;
+    private Spinner mySpinner;
+    private String[] categories = {"Date", "Location"};
+    private static String filtre = "Date";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +44,34 @@ public class MainActivity extends AppCompatActivity {
 
         mApiService = DI.getMeetingApiService();
         mMeetings = mApiService.getMeetings();
-        adapter = new MyMeetingRecyclerViewAdapter(mMeetings);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
+        mySpinner = binding.spinner;
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,
+                categories);
+        // Layout for All ROWs of Spinner.  (Optional for ArrayAdapter).
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(adapterSpinner);
+        // When user select a List-Item.
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onItemSelectedHandler(parent, view, position, id);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Recycler view
+        adapter = new MyMeetingRecyclerViewAdapter(mMeetings);
         binding.RView.setAdapter(adapter);
         binding.RView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Log.d(TAG, String.valueOf(mReunion.getMeetingDate()));
-        Log.d(TAG,mReunion.getAttendees().get(1));
-
         mMeetings = mApiService.getMeetingsByDate();
         for(Meeting m : mMeetings){
             Log.d(TAG,m.getSubject() + " - " + m.getMeetingDate());
@@ -72,18 +93,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initList() {
+    private void onItemSelectedHandler(AdapterView<?> adapterView, View view, int position, long id) {
+        Adapter adapter = adapterView.getAdapter();
+        String categorie = (String) adapter.getItem(position);
+        Log.d(TAG,categorie);
+        initList(categorie);
+        
+                //Toast.makeText(getApplicationContext(), "Selected categorie ",Toast.LENGTH_SHORT).show();
+    }
+
+    private void initList(String filtre) {
         mApiService = DI.getMeetingApiService();
-        mMeetings = mApiService.getMeetings();
+        if (filtre == "Date") {
+            mMeetings = mApiService.getMeetingsByDate();
+        } else {
+            mMeetings = mApiService.getMeetingsByPlace();
+        }
         adapter = new MyMeetingRecyclerViewAdapter(mMeetings);
         binding.RView.setAdapter(adapter);
         binding.RView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        initList();
+        initList(filtre);
     }
 
     @Override
@@ -101,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe
     public void onCancelMeeting(CancelMeetingEvent event) {
         mApiService.cancelMeeting(event.meeting);
-        initList();
+        initList(filtre);
     }
 
 }

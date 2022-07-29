@@ -24,7 +24,7 @@ public abstract class DummyMeetingsGenerator {
                     .setTimeOfDay(14, 0, 0)
                     .build().getTime(),
                     "Peach",
-                    new ArrayList(Arrays.asList("maxime@lamzone.com", "alexis@lamzone.com"))
+                    "maxime@lamzone.com, alexis@lamzone.com"
             ),
             new Meeting(
                     2,
@@ -34,7 +34,7 @@ public abstract class DummyMeetingsGenerator {
                             .setTimeOfDay(16, 0, 0)
                             .build().getTime(),
                     "Mario",
-                    new ArrayList(Arrays.asList("paul@lamzone.com", "viviane@lamzone.com"))
+                    "paul@lamzone.com, viviane@lamzone.com"
             ),
             new Meeting(
                     3,
@@ -44,7 +44,7 @@ public abstract class DummyMeetingsGenerator {
                             .setTimeOfDay(19, 0, 0)
                             .build().getTime(),
                     "Luigi",
-                    new ArrayList(Arrays.asList("amandine@lamzone.com", "luc@lamzone.com"))));
+                    "amandine@lamzone.com, luc@lamzone.com"));
 
     static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
