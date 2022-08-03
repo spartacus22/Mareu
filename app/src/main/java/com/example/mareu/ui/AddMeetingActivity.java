@@ -43,11 +43,11 @@ public class AddMeetingActivity extends AppCompatActivity {
         binding.saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String date = "Mar 10, 2016 6:30:00 PM";
+
                 String date = binding.dateLyt.getEditText().getText().toString()
                         + " "
                         +  binding.hoursLyt.getEditText().getText().toString();
-                //SimpleDateFormat spf = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa");
+
                 SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                 Date newDate = new Date();
                 try {
@@ -55,11 +55,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                //spf= new SimpleDateFormat("dd MMM yyyy");
-                //date = spf.format(newDate);
 
-                Log.d(TAG, date);
-                //Log.d(TAG, binding.dateLyt.getEditText().getText().toString());
                 Meeting meet = new Meeting(
                         System.currentTimeMillis(),
                         binding.subjectLyt.getEditText().getText().toString(),
@@ -71,7 +67,6 @@ public class AddMeetingActivity extends AppCompatActivity {
                 );
                 mApiService.createMeeting(meet);
                 finish();
-                Log.d(TAG, "View Binding press button");
             }
         });
     }

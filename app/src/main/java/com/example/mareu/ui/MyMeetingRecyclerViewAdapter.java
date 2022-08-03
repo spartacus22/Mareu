@@ -44,7 +44,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         Meeting meeting = mMeetings.get(position);
         SimpleDateFormat spf = new SimpleDateFormat("HH:mm");
         String hour = spf.format(mMeetings.get(position).getMeetingDate());
-        Log.d(TAG, hour);
+        //Log.d(TAG, hour);
         holder.mItem = mMeetings.get(position);
       //  holder.mIdView.setText(mMeetings.get(position).getId());
         holder.mContentView.setText(mMeetings.get(position).getSubject()

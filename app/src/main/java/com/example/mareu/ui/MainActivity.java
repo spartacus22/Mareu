@@ -1,14 +1,18 @@
 package com.example.mareu.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,11 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
     private static MeetingApiService mApiService;
     private List<Meeting> mMeetings;
+    private List<Meeting> mMeetingsFiltered;
     private ActivityMainBinding binding;
     private MyMeetingRecyclerViewAdapter adapter;
     private Spinner mySpinner;
     private String[] categories = {"Date", "Location"};
     private static String filtre = "Date";
+    private String m_Text = "";
 
 
     @Override
@@ -53,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 categories);
-        // Layout for All ROWs of Spinner.  (Optional for ArrayAdapter).
+
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapterSpinner);
+
+
         // When user select a List-Item.
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -79,37 +87,51 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AddMeetingActivity.navigate(MainActivity.this);
-               // Log.d(TAG, "View Binding press button");
             }
         });
 
         mMeetings = mApiService.getMeetingsByDate();
-        for(Meeting m : mMeetings){
-            Log.d(TAG,m.getSubject() + " - " + m.getMeetingDate());
-        }
-        mMeetings = mApiService.getMeetingsByPlace();
-        for(Meeting m : mMeetings){
-            Log.d(TAG,m.getSubject() + " - " + m.getPlace());
-        }
+
     }
 
     private void onItemSelectedHandler(AdapterView<?> adapterView, View view, int position, long id) {
         Adapter adapter = adapterView.getAdapter();
         String categorie = (String) adapter.getItem(position);
         Log.d(TAG,categorie);
-        initList(categorie);
-        
-                //Toast.makeText(getApplicationContext(), "Selected categorie ",Toast.LENGTH_SHORT).show();
+        // initList(categorie);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Filtre");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Text = input.getText().toString();
+                initList(categorie, m_Text);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
-    private void initList(String filtre) {
+    private void initList(String type_filter, String filter) {
         mApiService = DI.getMeetingApiService();
-        if (filtre == "Date") {
-            mMeetings = mApiService.getMeetingsByDate();
+        if (type_filter.equals("Date")) {
+            mMeetingsFiltered = mApiService.filterMeetingsByDate(filter);
         } else {
-            mMeetings = mApiService.getMeetingsByPlace();
+            //mMeetings = mApiService.getMeetingsByPlace();
+            mMeetingsFiltered = mApiService.filterMeetingsByLocation(filter);
         }
-        adapter = new MyMeetingRecyclerViewAdapter(mMeetings);
+        adapter = new MyMeetingRecyclerViewAdapter(mMeetingsFiltered);
         binding.RView.setAdapter(adapter);
         binding.RView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -118,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        initList(filtre);
+        initList(filtre,"");
     }
 
     @Override
@@ -136,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     @Subscribe
     public void onCancelMeeting(CancelMeetingEvent event) {
         mApiService.cancelMeeting(event.meeting);
-        initList(filtre);
+        initList(filtre,"");
     }
 
 }
