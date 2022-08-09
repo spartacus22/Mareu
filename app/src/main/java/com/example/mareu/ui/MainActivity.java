@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Meeting> mMeetingsFiltered;
     private ActivityMainBinding binding;
     private MyMeetingRecyclerViewAdapter adapter;
-    private Spinner mySpinner;
+    private MySpinner mySpinner;
     private String[] categories = {"Date", "Location"};
     private static String filtre = "Date";
     private String m_Text = "";
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        mySpinner = binding.spinner;
+        mySpinner = (MySpinner) binding.spinner;
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 categories);
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // When user select a List-Item.
+        mySpinner.setSelection(0,false);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override

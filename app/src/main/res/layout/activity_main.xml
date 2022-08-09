@@ -48,7 +48,7 @@
         app:srcCompat="@drawable/ic_baseline_add_circle_56"
         app:tint="@color/design_default_color_error" />
 
-    <Spinner
+    <com.example.mareu.ui.MySpinner
         android:id="@+id/spinner"
         android:layout_width="32dp"
         android:layout_height="32dp"
