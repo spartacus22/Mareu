@@ -25,12 +25,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RView"
-        android:layout_width="409dp"
-        android:layout_height="651dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,8 +41,8 @@
         android:clickable="true"
         android:scaleType="center"
         app:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/RView"
-        app:layout_constraintEnd_toEndOf="@+id/RView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="67dp"
         app:srcCompat="@drawable/ic_baseline_add_circle_56"
         app:tint="@color/design_default_color_error" />
