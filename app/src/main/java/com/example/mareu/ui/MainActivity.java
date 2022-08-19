@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapterSpinner);
 
-
         // When user select a List-Item.
         mySpinner.setSelection(0,false);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -98,13 +97,11 @@ public class MainActivity extends AppCompatActivity {
     private void onItemSelectedHandler(AdapterView<?> adapterView, View view, int position, long id) {
         Adapter adapter = adapterView.getAdapter();
         String categorie = (String) adapter.getItem(position);
-        Log.d(TAG,categorie);
-        // initList(categorie);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Filtre");
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setId(22091969);
         builder.setView(input);
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
