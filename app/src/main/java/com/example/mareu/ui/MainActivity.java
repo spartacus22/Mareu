@@ -55,14 +55,12 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        mySpinner = (MySpinner) binding.spinner;
+        mySpinner = binding.spinner;
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,
                 categories);
-
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(adapterSpinner);
-
         // When user select a List-Item.
         mySpinner.setSelection(0,false);
         mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Filtre");
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        input.setId(22091969);
+        //input.setId(22091969);
         builder.setView(input);
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

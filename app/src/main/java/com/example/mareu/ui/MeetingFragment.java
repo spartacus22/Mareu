@@ -23,9 +23,8 @@ import java.util.List;
  */
 public class MeetingFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
+
     private int mColumnCount = 1;
 
     private static MeetingApiService mApiService;
@@ -38,7 +37,6 @@ public class MeetingFragment extends Fragment {
     public MeetingFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static MeetingFragment newInstance(int columnCount) {
         MeetingFragment fragment = new MeetingFragment();
