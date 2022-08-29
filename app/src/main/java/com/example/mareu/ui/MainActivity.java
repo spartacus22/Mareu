@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Filtre");
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
-        //input.setId(22091969);
+        input.setId(22091969);
         builder.setView(input);
         // Set up the buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
